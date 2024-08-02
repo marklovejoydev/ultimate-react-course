@@ -142,10 +142,10 @@ function getBooks() {
 function getBook(id) {
   return data.find((d) => d.id === id);
 }
-/*
+
 //Destructuring
 
-const book = getBook(1);
+const book = getBook(2);
 
 book;
 
@@ -240,8 +240,8 @@ spanishTranslation;
 
 const count = book.reviews.librarything?.reviewsCount ?? "no data";
 console.log(count);
-// optional chaining using ? for optional incase a part is undefined 
-// use if your not sure all the values exist 
+// optional chaining using ? for optional incase a part is undefined
+// use if your not sure all the values exist
 const getTotalReviewCount = (book) => {
   const goodreads = book.reviews.goodreads?.reviewsCount;
   const librarything = book.reviews.librarything?.reviewsCount ?? 0;
@@ -249,7 +249,7 @@ const getTotalReviewCount = (book) => {
 };
 
 console.log(getTotalReviewCount(book));
-*/
+
 //array map method
 //loop over an array create a copy of a new array of same length and do something to each el
 /*
@@ -344,11 +344,11 @@ bookAfterUpdate
 // // cl is shown before the res of the fetch as js has continued before the res has arrived
 // console.log("showing position");
 
-async function getTodos() {
-  const res = await fetch("https://jsonplaceholder.typicode.com/todos/1");
-  const data = await res.json();
-  console.log(data);
-  return data;
-}
+// async function getTodos() {
+//   const res = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+//   const data = await res.json();
+//   console.log(data);
+//   return data;
+// }
 
-getTodos();
+// getTodos();
