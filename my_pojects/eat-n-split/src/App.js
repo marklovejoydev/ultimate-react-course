@@ -51,7 +51,6 @@ export default function App() {
   }
 
   function handleSplitBill(value) {
-    console.log(value);
     setFriends((friends) =>
       friends.map((friend) =>
         friend.id === seclectedFriend.id
@@ -59,6 +58,7 @@ export default function App() {
           : friend
       )
     );
+    seclectedFriend(null);
   }
 
   return (
@@ -179,10 +179,6 @@ function FormSplitBill({ seclectedFriend, onSplitBill }) {
     if (!bill || !paidByUser) return;
     const amountToSplit = whoIsPaying === "user" ? paidByFriend : -paidByUser;
     onSplitBill(amountToSplit);
-
-    // Reset form
-    setBill("");
-    setPaidByUser("");
   }
 
   return (
