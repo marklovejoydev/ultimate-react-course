@@ -50,6 +50,17 @@ export default function App() {
     setShowAddFriend(false);
   }
 
+  function handleSplitBill(value) {
+    console.log(value);
+    setFriends((friends) =>
+      friends.map((friend) =>
+        friend.id === seclectedFriend.id
+          ? { ...friend, balance: friend.balance + value }
+          : friend
+      )
+    );
+  }
+
   return (
     <div className="app">
       <div className="sidebar">
@@ -64,7 +75,12 @@ export default function App() {
           {showAddFriend ? "Close" : "Add Friend"}
         </Button>
       </div>
-      {seclectedFriend && <FormSplitBill seclectedFriend={seclectedFriend} />}
+      {seclectedFriend && (
+        <FormSplitBill
+          seclectedFriend={seclectedFriend}
+          onSplitBill={handleSplitBill}
+        />
+      )}
     </div>
   );
 }
@@ -149,14 +165,28 @@ function FormAddFriend({ onSetFriend }) {
   );
 }
 
-function FormSplitBill({ seclectedFriend }) {
+function FormSplitBill({ seclectedFriend, onSplitBill }) {
   const [bill, setBill] = useState("");
   const [paidByUser, setPaidByUser] = useState("");
+
   const paidByFriend = bill ? bill - paidByUser : "";
+
   const [whoIsPaying, setWhoIsPaying] = useState("user");
 
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (!bill || !paidByUser) return;
+    const amountToSplit = whoIsPaying === "user" ? paidByFriend : -paidByUser;
+    onSplitBill(amountToSplit);
+
+    // Reset form
+    setBill("");
+    setPaidByUser("");
+  }
+
   return (
-    <form className="form-split-bill">
+    <form className="form-split-bill" onSubmit={handleSubmit}>
       <h2>Split bill with {seclectedFriend.name}</h2>
 
       <label>💰Bill Value</label>
@@ -172,9 +202,7 @@ function FormSplitBill({ seclectedFriend }) {
         value={paidByUser}
         onChange={(e) =>
           setPaidByUser(
-            Number(e.target.value) > bill
-              ? paidByUser
-              : setPaidByUser(Number(e.target.value))
+            Number(e.target.value) > bill ? paidByUser : Number(e.target.value)
           )
         }
       />
