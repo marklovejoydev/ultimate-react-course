@@ -4,8 +4,7 @@ import StarRating from "./StarRating";
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-//remove into dovenv
-const KEY = "4731fd7";
+const KEY = process.env.REACT_APP_KEY;
 
 export default function App() {
   const [query, setQuery] = useState("");
