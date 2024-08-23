@@ -253,6 +253,7 @@ function SelectedMovie({ selectedId, onCloseMovie, onAddWatched, watched }) {
           `http://www.omdbapi.com/?apikey=${KEY}&i=${selectedId}`
         );
         const data = await res.json();
+        console.log(data);
         setMovie(data);
         setIsLoading(false);
       }
